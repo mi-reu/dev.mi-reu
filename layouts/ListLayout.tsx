@@ -6,6 +6,7 @@ import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
+import NotFoundPost from '@/components/NotFoundPost'
 
 interface PaginationProps {
   totalPages: number
@@ -109,7 +110,11 @@ export default function ListLayout({
           </div>
         </div>
         <ul>
-          {!filteredBlogPosts.length && 'No posts found.'}
+          {!filteredBlogPosts.length && (
+            <li>
+              <NotFoundPost />
+            </li>
+          )}
           {displayPosts.map((post) => {
             const { path, date, title, summary, tags } = post
             return (
