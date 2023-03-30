@@ -1,18 +1,19 @@
 // @ts-check
-const { fontFamily } = require('tailwindcss/defaultTheme')
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 
-// ../node_modules/pliny/dist/**/*.mjs is needed for monorepo setup
-/** @type {import("tailwindcss/types").Config } */
+/** @type {import("tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
+  experimental: {
+    optimizeUniversalDefaults: true,
+  },
   content: [
-    '../node_modules/pliny/**/*.{js,ts,tsx}',
-    './node_modules/pliny/**/*.{js,ts,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,tsx}',
-    './components/**/*.{js,ts,tsx}',
-    './layouts/**/*.{js,ts,tsx}',
-    './lib/**/*.{js,ts,tsx}',
+    './pages/**/*.tsx',
+    './components/**/*.tsx',
+    './layouts/**/*.tsx',
+    './lib/**/*.ts',
     './data/**/*.mdx',
   ],
   darkMode: 'class',
@@ -28,7 +29,8 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['Inter', ...fontFamily.sans],
+        //@ts-ignore
+        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         primary: colors.rose,
