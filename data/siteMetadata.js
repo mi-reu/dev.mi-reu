@@ -1,6 +1,6 @@
 const siteMetadata = {
   title: `Miller's dev.log`,
-  author: 'Miller',
+  author: 'mi-reu',
   headerTitle: 'dev.log',
   description: '',
   language: 'ko-KR',
