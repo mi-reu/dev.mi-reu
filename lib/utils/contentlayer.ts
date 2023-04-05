@@ -1,6 +1,8 @@
 import kebabCase from '@/lib/utils/kebabCase'
 import type { Blog, DocumentTypes } from 'contentlayer/generated'
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 export function dateSortDesc(a: string, b: string) {
   if (a > b) return -1
   if (a < b) return 1
@@ -31,6 +33,7 @@ export const pick = <Obj, Keys extends keyof Obj>(
   return keys.reduce((acc, key) => {
     acc[key] = obj[key] ?? null
     return acc
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }, {} as any)
 }
 
@@ -49,6 +52,10 @@ export function coreContent<T extends DocumentTypes>(content: T) {
 }
 
 export function allCoreContent<T extends DocumentTypes>(contents: T[]) {
+  if (isDevelopment) {
+    return contents.map((c) => coreContent(c))
+  }
+
   return contents.filter((c) => 'draft' in c && !c.draft).map((c) => coreContent(c))
 }
 
@@ -57,7 +64,7 @@ export async function getAllTags(allBlogs: Blog[]) {
   const tagCount: Record<string, number> = {}
   // Iterate through each post, putting all found tags into `tags`
   allBlogs.forEach((file) => {
-    if (file.tags && file.draft !== true) {
+    if (isDevelopment || (file.tags && file.draft !== true)) {
       file.tags.forEach((tag) => {
         const formattedTag = kebabCase(tag)
         if (formattedTag in tagCount) {

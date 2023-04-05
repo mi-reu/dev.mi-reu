@@ -21,11 +21,7 @@ export async function getStaticPaths() {
 
 export const getStaticProps = async (context) => {
   const tag = context.params.tag as string
-  const filteredPosts = allCoreContent(
-    allBlogs.filter(
-      (post) => post.draft !== true && post.tags.map((t) => kebabCase(t)).includes(tag)
-    )
-  )
+  const filteredPosts = allCoreContent(allBlogs)
 
   return { props: { posts: filteredPosts, tag } }
 }

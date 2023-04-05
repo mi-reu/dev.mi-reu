@@ -5,7 +5,7 @@ const siteMetadata = {
   description: '',
   language: 'ko-KR',
   theme: 'system', // system, dark or light
-  siteUrl: '',
+  siteUrl: 'https://devlog.mi-reu.vercel.app',
   siteRepo: 'https://github.com/mi-reu/dev.mi-reu',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
