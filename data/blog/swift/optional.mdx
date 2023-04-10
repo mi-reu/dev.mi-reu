@@ -26,5 +26,34 @@ enum Optional<Wrapped> {
 자바에서는 `NullPointException` 이라고 하며, 자바스크립트에서는 `ReferenceError` 라고 합니다.
 이처럼 프로그램에서 값이 없는 변수 또는 속성을 참조해서 사용하는 경우 에러가 발생할 수 있습니다.
 
-그래서 애플은 스위프트라는 언어를 만들 때 이러한 에러가 발생하기전에 개발자가 프로그래밍 단계에서<br />
-에러가 발생할 수 있는 상황을 인식하여 처리할 수 있도록 옵셔널 타입을 만들었습니다.
+그래서 애플은 스위프트라는 언어를 만들 때 이러한 에러를 방지하기 위해 개발자가 프로그래밍 단계에서<br />
+에러가 발생할 수 있는 상황을 미리 처리할 수 있도록 옵셔널이라는 타입을 만들었습니다.
+
+## 옵셔널 타입 사용
+
+옵셔널 타입은 어떻게 정의할 수 있을까요?
+
+```swift
+let shortForm: Int? = Int("42")
+let longForm: Optional<Int> = Int("42")
+```
+
+위 코드를 보면 기본 타입인 Int 옆에 `?` 가 붙어 있는걸 보실 수 있어요.<br />
+이렇게 기본 타입 옆에 `?` 키워드를 붙이게되면 옵셔널 타입으로 표시가 됩니다!<br />
+
+이 방식은 축약형 표현 방식이고 바로 아래 `Optional<Int>` 로 표시하는 방식이 기본방식 입니다.<br />
+주로 읽고 쓰기 쉬운 축약형 방식으로 표시하는 방식이 선호됩니다.
+
+옵셔널 타입은 두 가지 `case` 가 있는 열거형 인데요. 하나는 `Optional.none` 이고 `nil` 리터럴과 동일합니다.<br />
+다른 하나는 `Optional.some(Wrapped)` 로 래핑된 값을 저장해요. 예를 들면,
+
+```swift
+let number: Int? = Optional.some(42)
+print(number)
+
+let noNumber: Int? = Optional.none
+print(noNumber)
+```
+
+이렇게 옵셔널 타입에 정의된 `some` 과 `none` 을 각각 변수에 담아 값을 `print` 함수로 출력해보면<br />
+`print(number)` 는 `Optional(42)` 이 출력되고 `print(noNumber)` 에는 `nil` 이 출력되는걸 확인할 수 있어요.
