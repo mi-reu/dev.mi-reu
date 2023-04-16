@@ -38,13 +38,13 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
             </li>
           )}
           {posts.slice(0, MAX_DISPLAY).map((post) => {
-            const { slug, date, title, summary, tags } = post
+            const { slug, date, title, summary, tags, draft } = post
             return (
               <li key={slug} className="py-12">
                 <article>
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
-                      <dt className="sr-only">Published on</dt>
+                      <dt className="sr-only">게시일</dt>
                       <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                         <time dateTime={date}>{formatDate(date)}</time>
                       </dd>
@@ -59,6 +59,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                             >
                               {title}
                             </Link>
+                            {draft && <span className="ml-5">🚧🚧🚧</span>}
                           </h2>
                           <div className="flex flex-wrap">
                             {tags.map((tag) => (

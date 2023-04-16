@@ -27,7 +27,7 @@ interface Props {
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: Props) {
-  const { slug, date, title, tags } = content
+  const { slug, date, title, tags, draft } = content
 
   return (
     <SectionContainer>
@@ -43,7 +43,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
                 <div>
-                  <dt className="sr-only">Published on</dt>
+                  <dt className="sr-only">게시일</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={date}>
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
@@ -52,7 +52,10 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               </dl>
               <div>
-                <PageTitle>{title}</PageTitle>
+                <PageTitle>
+                  {title}
+                  {draft && <span className="ml-5">🚧🚧🚧</span>}
+                </PageTitle>
               </div>
             </div>
           </header>
