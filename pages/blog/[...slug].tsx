@@ -1,4 +1,3 @@
-import PageTitle from '@/components/PageTitle'
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
 import { sortedBlogPost, coreContent } from '@/lib/utils/contentlayer'
 import { InferGetStaticPropsType } from 'next'
