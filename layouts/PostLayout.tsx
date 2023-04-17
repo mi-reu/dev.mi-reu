@@ -52,10 +52,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               </dl>
               <div>
-                <PageTitle>
-                  {title}
-                  {draft && <span className="ml-5">🚧🚧🚧</span>}
-                </PageTitle>
+                {draft && <span className="text-4xl">🚧🚧🚧</span>}
+                <PageTitle>{title}</PageTitle>
               </div>
             </div>
           </header>
