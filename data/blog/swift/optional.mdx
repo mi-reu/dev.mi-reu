@@ -80,7 +80,7 @@ print(number) // 42
 ```
 
 이 방식은 위 코드처럼 옵셔널 타입 다음에 `!` 키워드(강제 래핑 해제 연산자)를 사용하여 강제로 언래핑 하는 방식입니다.<br />
-근데 만약 강제로 언래핑을 했는데 값이 `nil` 이면 어떻게 될까요? 예상하시는 것처럼 오류가 발생하여 앱이 죽는 형상이 발생할 수 있습니다.<br />
+근데 만약 강제로 언래핑을 했는데 값이 `nil` 이면 어떻게 될까요? 예상하시는 것처럼 오류가 발생하여 앱이 죽는 형상이 발생할 수 있습니다.
 그렇기 때문에 이 방식은 확실하게 값이 있을 수 있는 상황에서만 사용하여야 합니다!
 
 ### Optional Binding(옵셔널 바인딩)
@@ -100,3 +100,31 @@ if let s = hello {
 
 먼저 `if let` 을 사용하는 방식은 위 코드처럼 조건문과 변수 선언문이 합쳐진거 같은 문장입니다.<br />
 위 문장에서 hello 변수에 값이 있으면 s 라는 변수에 값을 복사하여 담은 후 if 조건문의 문장을 실행하고 없으면 else 문의 문장을 실행하게 됩니다.
+간단하죠? (여기서 else 문의 경우는 없어도 전혀 상관 없습니다.)
+
+```swift
+func sayHello() {
+    var hello: String? = "안녕하세요"
+
+    guard let s = hello else { return }
+
+    print(s)
+}
+
+sayHello()
+```
+
+`guard let` 의 경우도 `if let` 과 비슷합니다. 다만, `guard let` 문법의 경우 else 문에서 제어 변경 구문(Control Transfer Statements)이 필요합니다.
+위 예제에서는 함수를 조기 종료(early return) 시켜야하므로 `return` 문을 사용했어요.<br />
+
+> 제어 변경 구문(Control Transfer Statements)
+>
+> - continue
+> - break
+> - fallthrough
+> - return
+> - throw
+
+그리고 `if let` 과 다른점이 또 하나 있는데 `guard let` 으로 정의된 변수는 해당 함수가 종료되기전까지 사용할 수 있습니다.
+그렇기 때문에 아래 `print(s)` 문장을 실행하게되면 "안녕하세요" 가 출력이 되는걸 확인하실 수 있을 겁니다.<br />
+여러 조건을 만족해야하는 경우 `if let` 을 중첩 사용하는것보다 `guard let` 을 사용하는 방식이 훨씬 깔끔하겠죠?!
