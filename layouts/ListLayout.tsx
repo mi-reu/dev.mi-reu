@@ -63,7 +63,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
             </li>
           )}
           {displayPosts.map((post) => {
-            const { slug, date, title, summary, tags } = post
+            const { slug, date, title, summary, tags, draft } = post
             return (
               <li key={slug} className="py-4">
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
@@ -79,6 +79,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
                           {title}
                         </Link>
+                        {draft && <span className="ml-5">🚧🚧🚧</span>}
                       </h3>
                       <div className="flex flex-wrap">
                         {tags.map((tag) => (
