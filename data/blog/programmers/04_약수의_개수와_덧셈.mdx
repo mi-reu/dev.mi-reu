@@ -1,0 +1,71 @@
+---
+title: 프로그래머스 - 약수의 개수와 덧셈
+date: '2023-04-23'
+tags: ['algorithm', 'javascript']
+draft: false
+summary: 약수의 개수와 덧셈 문제 풀이
+---
+
+## 문제
+
+https://school.programmers.co.kr/learn/courses/30/lessons/77884
+
+두 정수 left와 right가 매개변수로 주어집니다. left부터 right까지의 모든 수들 중에서, 약수의 개수가 짝수인 수는 더하고, 약수의 개수가 홀수인 수는 뺀 수를 return 하도록 solution 함수를 완성해주세요.
+
+#### 제한 조건
+
+- 1 ≤ left ≤ right ≤ 1,000
+
+<hr />
+
+## 코드
+
+**내가 푼 풀이**
+
+```javascript
+function solution(left, right) {
+  const calculateFactors = (num) => {
+    const set = new Set()
+
+    for (let i = 1; i <= Math.sqrt(num); i += 1) {
+      if (Math.floor(num % i) === 0) {
+        set.add(i)
+        set.add(Math.floor(num / i))
+      }
+    }
+
+    return Array.from(set).sort((a, b) => a - b)
+  }
+
+  return Array(right - left + 1)
+    .fill(left)
+    .reduce((acc, curr, index) => {
+      const num = curr + index
+
+      if (calculateFactors(num).length % 2 === 0) {
+        acc += num
+      } else {
+        acc -= num
+      }
+
+      return acc
+    }, 0)
+}
+```
+
+**다른 사람 풀이 중 좋다고 생각한 풀이**
+
+```javascript
+function solution(left, right) {
+  var answer = 0
+  for (let i = left; i <= right; i++) {
+    // 제곱근이 정수면 약수의 개수가 홀수다.
+    if (Number.isInteger(Math.sqrt(i))) {
+      answer -= i
+    } else {
+      answer += i
+    }
+  }
+  return answer
+}
+```
