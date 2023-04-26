@@ -34,7 +34,7 @@ draft: false
   - as? 연산자 / as! 연산자
   - 인스턴스 `as?` 타입
     - 성공: OptionalType 으로 리턴 -> 필요한 경우, 언래핑 필요
-    - 실패: nill 리턴
+    - 실패: nil 리턴
   - 인스턴스 `as!` 타입
     - 성공: OptionalType 을 강제 언래핑한 타입
     - 실패: 런타입 오류
@@ -42,7 +42,7 @@ draft: false
 ### as 연산자의 활용
 
 상호 호환이 가능한 타입들의 경우 타입 캐스팅을 강제(`as!`)할 필요 없다.
-그리고 이러한 방식을 Bridging 이라고 한다.
+그리고 이러한 방식을 `Bridging` 이라고 한다.
 
 ```swift
 let str: String = "Hello"
