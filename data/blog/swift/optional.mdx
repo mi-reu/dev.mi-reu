@@ -11,7 +11,7 @@ summary: 스위프트의 옵셔널 이해하기
 오늘 정리할 내용은 스위프트의 `Optional` 입니다 👏👏👏
 
 스위프트의 옵셔널은 일종의 타입인데요. 정확하게는 Enum 타입입니다.<br />
-Enum 은 열거형 타입이라고 하고 아래와 같이 `enum` 키워드로 정의된 타입이 Enum 타입 입니다.
+Enum 은 열거형 타입이라고 하고 아래와 같이 `enum` 키워드로 정의된 타입이 열거형 타입 입니다.
 
 ```swift
 enum Optional<Wrapped> {
@@ -129,6 +129,75 @@ sayHello()
 그렇기 때문에 아래 `print(s)` 문장을 실행하게되면 "안녕하세요" 가 출력이 되는걸 확인하실 수 있을 겁니다.<br />
 여러 조건을 만족해야하는 경우 `if let` 을 중첩 사용하는것보다 `guard let` 을 사용하는 방식이 훨씬 깔끔하겠죠?!
 
+옵셔널 바인딩의 마지막인 `switch` 를 사용하는 방법은 아주 간단합니다. 제가 위에서 옵셔널은 Enum(열거형) 타입이라고 말씀드렸죠.
+switch 에서는 이러한 Enum 타입을 조건으로 사용하게 되면 Enum 의 값을 조건으로 사용할 수 있습니다.
+
+```swift
+var name: String? = "밀러"
+
+switch name {
+case .some(let name):
+    print("안녕하세요, \(name)")
+case .none:
+    print("안녕하세요, \(name)")
+}
+```
+
+이렇게 `Optional` 타입에 정의된 .some, .none 값을 이용하여 switch 문에서 옵셔널 타입을 벗겨낼 수 있습니다.
+그런데 옵셔널은 열거형 타입이라고 했는데 열거형을 다시 옵셔널 타입으로 선언하게 되면 어떻게 될까요..?
+
+```swift
+enum Pets {
+    case dog
+    case cat
+}
+
+var pets: Pets? = .dog
+
+// 원칙적 사용
+switch pets {
+case .some(let value):
+    switch value {
+    case .dog:
+        print("멍멍")
+    case .cat:
+        print("야옹")
+    }
+case .none:
+    print("")
+}
+```
+
+원래대로라면 위 코드처럼 switch 문 안에서 한번 더 switch 문을 사용하여 옵셔널 타입을 벗겨주는 방식이 원칙적인 방식입니다.
+하지만 매번 이렇게 사용해야 하면 가독성도 안좋고 개발자도 불편하겠죠?!
+그래서 애플은 switch 문에서는 옵셔널 열거형 타입의 값에 접근할 때는 옵셔널 타입을 벗겨내지 않아도 값에 접근할 수 있는 편의적 기능을 제공하고 있습니다.
+
+```swift
+// 편의적 기능 제공
+switch pets {
+case .some(.dog):
+    print("멍멍")
+case .some(.cat):
+    print("야옹")
+case .none:
+    print("")
+}
+
+// .some, .none 또한 생략 가능
+// 대신, nil 값으로 비교
+switch pets {
+case .dog:
+    print("멍멍")
+case .cat:
+    print("야옹")
+case nil:
+    print("")
+}
+```
+
+위 예제처럼 `.some`과 `.none` 을 사용하지 않고도 바로 `.dog` 에 접근하여 print 함수의 결과로 `"멍멍"` 이 출력되는걸 확인하실 수 있을거에요.
+단, 위 예제에서 사용한 옵셔널 열거형 타입은 연관값이 없는 경우입니다. 연관값을 가지고 있는 옵셔널 열거형의 경우는 위 방식처럼 사용될 수 없습니다!
+
 ### nil-coalescing (nil 병합 연산자)
 
 다음은 nil 병합 연산자, 영어로 nil coalescing operator 를 사용하는 방식입니다.<br />
@@ -190,7 +259,7 @@ print(family.member?.name) // nil
 이렇게 하게되면 출력 결과는 `nil` 이 호출되게 될겁니다. 당연하게도 member 저장속성에는 아직 `Member` 의 인스턴스가 담겨있지 않기 때문이죠.
 
 ```swift
-family.member = Member(name: "밀러", age: 20)
+family.member = Member(name: "밀러", age: 30)
 
 print(family.member?.name) // Optional("밀러")
 ```
