@@ -34,8 +34,8 @@ enum Optional<Wrapped> {
 옵셔널 타입은 어떻게 정의할 수 있을까요?
 
 ```swift
-let shortForm: Int? = Int("42")
-let longForm: Optional<Int> = Int("42")
+let shortForm: Int? = Int("10")
+let longForm: Optional<Int> = Int("10")
 ```
 
 위 코드를 보면 기본 타입인 Int 옆에 `?` 가 붙어 있는걸 보실 수 있어요.<br />
@@ -48,18 +48,18 @@ let longForm: Optional<Int> = Int("42")
 다른 하나는 `Optional.some(Wrapped)` 로 래핑된 값을 저장해요. 예를 들면,
 
 ```swift
-let number: Int? = Optional.some(42)
-print(number) // Optional(42)
+let number: Int? = Optional.some(10)
+print(number) // Optional(10)
 
 let noNumber: Int? = Optional.none
 print(noNumber) // nil
 ```
 
 이렇게 옵셔널 타입에 정의된 `some` 과 `none` 을 각각 변수에 담아 값을 `print` 함수로 출력해보면<br />
-`print(number)` 는 `Optional(42)` 이 출력되고 `print(noNumber)` 에는 `nil` 이 출력되는걸 확인할 수 있어요.
+`print(number)` 는 `Optional(10)` 이 출력되고 `print(noNumber)` 에는 `nil` 이 출력되는걸 확인할 수 있어요.
 
-하지만 `Optional(42)` 값은 다른 정수 타입처럼 일반적인 더하기, 빼기 등의 연산을 할 수 없습니다. 왜 그럴까요??<br />
-`Optional(42)` 는 옵셔널 타입으로 한번 감싸져 있는 값이기 때문입니다. 즉, 정수 타입이 아닌 거죠 😱<br />
+하지만 `Optional(10)` 값은 다른 정수 타입처럼 일반적인 더하기, 빼기 등의 연산을 할 수 없습니다. 왜 그럴까요??<br />
+`Optional(10)` 는 옵셔널 타입으로 한번 감싸져 있는 값이기 때문입니다. 즉, 정수 타입이 아닌 거죠 😱<br />
 그렇기 때문에 옵셔널 타입에 있는 값을 사용하기 위해서는 이 옵셔널 타입으로 감싸져 있는 포장지를 벗겨줘야 합니다.
 
 누군가에게 선물을 줄 때 포장지에 감싸서 주면 실제 선물을 받은 사람은 선물 포장지를 벗겨내기 전까지 안에 선물이 있는지 없는지 모르자나요.
@@ -75,13 +75,13 @@ print(noNumber) // nil
 먼저, 무조건 언래핑 또는 강제 언래핑이라고 불리는 방식입니다.
 
 ```swift
-let number = Int("42")!
-print(number) // 42
+let number = Int("10")!
+print(number) // 10
 ```
 
 이 방식은 위 코드처럼 옵셔널 타입 다음에 `!` 키워드(강제 래핑 해제 연산자)를 사용하여 강제로 언래핑 하는 방식입니다.<br />
-근데 만약 강제로 언래핑을 했는데 값이 `nil` 이면 어떻게 될까요? 예상하시는 것처럼 오류가 발생하여 앱이 죽는 형상이 발생할 수 있습니다.
-그렇기 때문에 이 방식은 확실하게 값이 있을 수 있는 상황에서만 사용하여야 합니다!
+실패할 수도 있는 Int 생성자의 결과는 위 예제에서 무조건 언래핑 됩니다. 근데 만약 강제로 언래핑을 했는데 값이 없으면 어떻게 될까요?
+예상하시는 것처럼 오류가 발생하여 앱이 죽는 형상이 발생할 수 있습니다. 그렇기 때문에 이 방식은 확실하게 값이 있을 수 있는 상황에서만 사용하여야 합니다!
 
 ### Optional Binding(옵셔널 바인딩)
 
